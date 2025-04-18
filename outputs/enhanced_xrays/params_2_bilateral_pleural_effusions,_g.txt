@@ -1,0 +1,8 @@
+window_center: 0.45
+window_width: 0.7
+edge_amount: 1.5
+median_size: 3
+clahe_clip: 3.0
+clahe_grid: (8, 8)
+vignette_amount: 0.3
+apply_hist_eq: True
