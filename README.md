@@ -388,10 +388,10 @@ If you use this project in your research, please cite it as:
 
 ```
 @software{chest_xray_generator,
-  author = {Priyam Choksi},
+  author = {Your Name},
   title = {Medical Chest X-Ray Generator},
-  year = {2025},
-  url = {https://github.com/priyam-choksi/cxr_diffusion}
+  year = {2023},
+  url = {https://github.com/yourusername/chest-xray-generator}
 }
 ```
 
