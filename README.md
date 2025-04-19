@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![X-ray Generation Banner](https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/banner.png)
+![X-ray Generation Banner](https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png)
 
 *Generating realistic chest X-ray images from text descriptions using latent diffusion models*
 
@@ -323,7 +323,7 @@ This is the primary mode for generating synthetic X-rays from text descriptions:
    - Images are saved as PNG files with timestamp identifiers
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/ui_generator.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/9.png" width="700" />
 <p><i>X-Ray Generator interface with enhanced results and metrics</i></p>
 </div>
 
@@ -345,7 +345,7 @@ This mode allows you to explore the training dataset:
    - Understand the style and quality of the training data
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/ui_dataset.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/3.png" width="700" />
 <p><i>Dataset Explorer interface showing sample X-ray and report</i></p>
 </div>
 
@@ -369,7 +369,7 @@ This mode provides detailed information about the model architecture and perform
    - Understand the effects of each processing step
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/ui_architecture.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/2.png" width="700" />
 <p><i>Model Information interface showing architecture diagrams</i></p>
 </div>
 
@@ -392,7 +392,7 @@ This mode allows you to compare different post-processing techniques:
    - Identify optimal presets for different pathologies
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/ui_enhancement.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/7.png" width="700" />
 <p><i>Enhancement Comparison interface showing multiple presets</i></p>
 </div>
 
@@ -675,19 +675,19 @@ The system includes four carefully tuned presets:
 <div align="center">
   <div style="display: flex; justify-content: center; flex-wrap: wrap;">
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/normal.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/sample_1.png" width="250" />
       <p><i>Normal chest X-ray</i></p>
     </div>
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/pneumonia.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/sample_2.png" width="250" />
       <p><i>Right lower lobe pneumonia</i></p>
     </div>
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/cardiomegaly.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/sample_3.png" width="250" />
       <p><i>Cardiomegaly with pulmonary congestion</i></p>
     </div>
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/pleural_effusion.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/sample_4.png" width="250" />
       <p><i>Bilateral pleural effusions</i></p>
     </div>
   </div>
