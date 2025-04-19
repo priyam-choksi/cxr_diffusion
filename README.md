@@ -2,12 +2,13 @@
 
 <div align="center">
 
-<video controls width="700">
-  <source src="https://github.com/priyam-choksi/cxr_diffusion/blob/main/app%20demo.webm?raw=true" type="video/webm">
-  Your browser does not support the video tag.
-</video>
+<div align="center">
 
+[![Watch the demo](https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png)](https://github.com/priyam-choksi/cxr_diffusion/blob/main/app%20demo.webm?raw=true)
 
+*Click the image above to watch the demo (WebM video)*
+
+![X-ray Generation Banner](https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png)
 ![X-ray Generation Banner](https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png)
 
 *Generating realistic chest X-ray images from text descriptions using latent diffusion models*
