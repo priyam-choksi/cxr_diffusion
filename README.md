@@ -2,8 +2,6 @@
 
 <div align="center">
 
-<div align="center">
-
 [![Watch the demo on YouTube](https://img.youtube.com/vi/mzvOV1ZnXeE/0.jpg)](https://youtu.be/mzvOV1ZnXeE)
 
 *Click the image above to watch the full demo video on YouTube*
@@ -20,18 +18,14 @@
 
 </div>
 
----
-
 > ⚠️ **IMPORTANT**:  
 > Before running this application, you **must download the model weights and dataset files** from the following sources: 
 >
 > - 🔗 [Google Drive - Dataset, Model Weights & Preprocessed Files](https://drive.google.com/drive/folders/1fNZavpgZ46zEHnimYAHWQ6-mwJhuXYTy?usp=sharing)  
-> - 📦 [Kaggle - Dataset)](https://www.kaggle.com/datasets/raddar/chest-xrays-indiana-university)
+> - 📦 [Kaggle - Dataset](https://www.kaggle.com/datasets/raddar/chest-xrays-indiana-university)
 >
 > After downloading, **place the contents inside your local repository**, following the project structure described below.  
 > ⚠️ The application **will not function** without these required files.
-
----
 
 ## 📋 Table of Contents
 - [Overview](#overview)
@@ -338,7 +332,7 @@ This is the primary mode for generating synthetic X-rays from text descriptions:
    - Images are saved as PNG files with timestamp identifiers
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/9.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/9.png" width="700" />
 <p><i>X-Ray Generator interface with enhanced results and metrics</i></p>
 </div>
 
@@ -360,7 +354,7 @@ This mode allows you to explore the training dataset:
    - Understand the style and quality of the training data
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/3.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/3.png" width="700" />
 <p><i>Dataset Explorer interface showing sample X-ray and report</i></p>
 </div>
 
@@ -384,7 +378,7 @@ This mode provides detailed information about the model architecture and perform
    - Understand the effects of each processing step
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/2.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png" width="700" />
 <p><i>Model Information interface showing architecture diagrams</i></p>
 </div>
 
@@ -407,7 +401,7 @@ This mode allows you to compare different post-processing techniques:
    - Identify optimal presets for different pathologies
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/7.png" width="700" />
+<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/7.png" width="700" />
 <p><i>Enhancement Comparison interface showing multiple presets</i></p>
 </div>
 
@@ -857,19 +851,19 @@ Training curves typically show:
 <div align="center">
   <div style="display: flex; justify-content: center; flex-wrap: wrap;">
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/sample_1.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/sample_1.png" width="250" />
       <p><i>Normal chest X-ray</i></p>
     </div>
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/sample_2.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/sample_2.png" width="250" />
       <p><i>Right lower lobe pneumonia</i></p>
     </div>
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/images/sample_3.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/sample_3.png" width="250" />
       <p><i>Cardiomegaly with pulmonary congestion</i></p>
     </div>
     <div style="margin: 10px; text-align: center;">
-      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/sample_4.png" width="250" />
+      <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/examples/sample_4.png" width="250" />
       <p><i>Bilateral pleural effusions</i></p>
     </div>
   </div>
