@@ -53,8 +53,17 @@
 - [Project Structure](#project-structure)
 - [Model Performance](#model-performance)
 - [Enhancement Pipeline](#enhancement-pipeline)
+- [Training the Models](#training-the-models)
+  - [Hardware Requirements for Training](#hardware-requirements-for-training)
+  - [Training the VAE](#training-the-vae)
+  - [Training the Diffusion Model](#training-the-diffusion-model)
+  - [Training Configuration](#training-configuration)
+  - [Monitoring Training](#monitoring-training)
 - [Sample Results](#sample-results)
 - [Troubleshooting](#troubleshooting)
+  - [Common Issues](#common-issues)
+  - [Training Issues](#training-issues)
+  - [Running the Demo with Limited Resources](#running-the-demo-with-limited-resources)
 - [Contributing](#contributing)
 - [Future Work](#future-work)
 - [Citation](#citation)
@@ -676,6 +685,173 @@ The system includes four carefully tuned presets:
 - **Highlights**: Authentic radiographic look with vignetting
 - **Description**: Simulates the appearance of traditional film radiographs
 
+## 🚂 Training the Models
+
+If you want to train the models from scratch rather than using the pre-trained weights, follow these instructions. Training consists of two stages: first training the VAE, then training the diffusion model using the trained VAE.
+
+### Hardware Requirements for Training
+
+Training these models requires significant computational resources:
+
+- **GPU**: NVIDIA GPU with at least 12GB VRAM (16GB+ recommended)
+- **RAM**: 32GB+ system memory
+- **Storage**: 50GB+ free space for dataset, checkpoints, and logs
+- **Time**: VAE training takes ~12-24 hours, diffusion model training ~48-72 hours on a good GPU
+
+### Training the VAE
+
+The Variational Autoencoder (VAE) needs to be trained first to learn an efficient latent representation of the chest X-ray images:
+
+```bash
+# Navigate to project directory
+cd cxr_diffusion
+
+# Create a configuration file first - example provided in config/vae_config.json
+# Adjust parameters as needed for your hardware
+
+# Run VAE training
+python -m xray_generator.train \
+  --config config/vae_config.json \
+  --dataset_path dataset/images/images_normalized \
+  --reports_csv dataset/indiana_reports.csv \
+  --projections_csv dataset/indiana_projections.csv \
+  --output_dir outputs \
+  --train_vae_only
+```
+
+The VAE training process will:
+1. Load and prepare the chest X-ray dataset
+2. Initialize the VAE model
+3. Train the VAE to reconstruct X-ray images while learning a compressed latent representation
+4. Save checkpoints regularly and track the best performing model
+5. Generate visualization samples to monitor training progress
+6. Save the final model in `outputs/checkpoints/vae/best_model.pt`
+
+VAE training typically takes 100-200 epochs to converge, with the model learning to reconstruct the X-ray images with low distortion while creating a useful latent space.
+
+### Training the Diffusion Model
+
+After the VAE is trained, you can train the diffusion model which will learn to generate latent representations conditioned on text:
+
+```bash
+# Run diffusion model training using the trained VAE
+python -m xray_generator.train \
+  --config config/diffusion_config.json \
+  --dataset_path dataset/images/images_normalized \
+  --reports_csv dataset/indiana_reports.csv \
+  --projections_csv dataset/indiana_projections.csv \
+  --output_dir outputs \
+  --resume_from outputs/checkpoints/vae/best_model.pt
+```
+
+The diffusion training process will:
+1. Load the pre-trained VAE model
+2. Initialize the UNet diffusion model and text encoder
+3. Train the model to denoise latent representations conditioned on text descriptions
+4. Implement classifier-free guidance for better text control
+5. Save checkpoints and track the best performing model
+6. Generate sample X-rays periodically to visualize progress
+7. Save the final model in `outputs/checkpoints/diffusion/best_model.pt`
+
+Diffusion model training typically requires 400-500 epochs for good results, with significant improvements visible after about 100 epochs.
+
+### Quick Test Mode
+
+If you want to test the training pipeline without committing to a full training run, you can use the quick test mode:
+
+```bash
+# Run a quick test of the VAE training
+python -m xray_generator.train \
+  --config config/vae_config.json \
+  --dataset_path dataset/images/images_normalized \
+  --reports_csv dataset/indiana_reports.csv \
+  --projections_csv dataset/indiana_projections.csv \
+  --output_dir outputs \
+  --train_vae_only \
+  --quick_test
+
+# Run a quick test of the diffusion model training
+python -m xray_generator.train \
+  --config config/diffusion_config.json \
+  --dataset_path dataset/images/images_normalized \
+  --reports_csv dataset/indiana_reports.csv \
+  --projections_csv dataset/indiana_projections.csv \
+  --output_dir outputs \
+  --resume_from outputs/checkpoints/vae/best_model.pt \
+  --quick_test
+```
+
+The `--quick_test` flag will:
+- Use only 1% of the dataset
+- Reduce batch size to 2
+- Run for just 2 epochs
+- Disable workers for data loading
+- This allows you to verify that the training pipeline works correctly without waiting hours or days.
+
+### Training Configuration
+
+The model training is controlled by configuration files in the `config` directory. Here are the key parameters you may want to adjust:
+
+**VAE Configuration (`vae_config.json`)**:
+```json
+{
+  "batch_size": 16,           // Reduce if you have less GPU memory
+  "epochs": 200,              // Number of training epochs
+  "learning_rate": 1e-4,      // Initial learning rate
+  "latent_channels": 8,       // Latent space size
+  "model_channels": 48,       // Base channel count for model
+  "image_size": 256,          // Image resolution
+  "use_amp": true,            // Use mixed precision (faster training)
+  "gradient_accumulation_steps": 4,  // For effective larger batch size
+  "checkpoint_freq": 5        // Save checkpoint every N epochs
+}
+```
+
+**Diffusion Configuration (`diffusion_config.json`)**:
+```json
+{
+  "batch_size": 8,            // Typically smaller than VAE due to memory
+  "epochs": 500,              // Diffusion needs more epochs
+  "learning_rate": 1e-4,
+  "latent_channels": 8,       // Must match VAE setting
+  "model_channels": 48,
+  "image_size": 256,
+  "use_amp": true,
+  "gradient_accumulation_steps": 8,
+  "checkpoint_freq": 10,
+  "scheduler_type": "ddim",   // Sampling scheduler
+  "num_train_timesteps": 1000, // Number of diffusion steps
+  "beta_schedule": "linear",  // Noise schedule
+  "prediction_type": "epsilon", // Predict added noise
+  "train_unet_only": true     // Keep VAE and text encoder frozen
+}
+```
+
+### Monitoring Training
+
+During training, you can monitor progress in several ways:
+
+1. **Console Output**: Training and validation losses are logged to the console at the end of each epoch
+2. **Checkpoints**: Regular checkpoints are saved in the outputs directory
+3. **Visualizations**: Sample images are generated after each epoch and saved in the outputs/visualizations directory
+4. **TensorBoard**: (Optional) You can add TensorBoard logging for better visualization
+
+Example of training progress monitoring:
+
+```
+Starting diffusion epoch 10/500
+Epoch 10/500 (Training): 100%|██████████| 548/548 [05:23<00:00,  1.69batch/s, loss=0.0266, diff=0.0266, lr=0.0000]
+Epoch 10/500 (Validation): 100%|██████████| 61/61 [00:42<00:00,  1.45batch/s]
+Epoch 10/500 | Train/Val Loss: 0.0266/0.0360 | Diff: 0.0266/0.0350
+New best model saved with val_loss=0.0360
+```
+
+Training curves typically show:
+- Decreasing loss over time, with periodic spikes
+- VAE reconstruction loss typically plateaus around 0.08-0.12
+- Diffusion loss typically reaches 0.02-0.03 by the end of training
+- Validation loss may be slightly higher but should follow the same trend
+
 ## 📷 Sample Results
 
 <div align="center">
@@ -915,6 +1091,50 @@ def profile_memory_usage(model_path, prompt, resolution=256):
 # Run quick performance test script
 python quick_test.py --resolution=256 --steps=20,50,100 --metrics
 ```
+
+### Training Issues
+
+**Out of Memory (OOM) Error**
+- **Symptom**: CUDA out of memory error during training
+- **Solutions**:
+  - Reduce batch size in the config file
+  - Increase gradient accumulation steps
+  - Reduce image size (e.g., 224x224 instead of 256x256)
+  - Clean GPU memory between training steps: `torch.cuda.empty_cache()`
+
+**Slow Training**
+- **Symptom**: Training is progressing very slowly
+- **Solutions**:
+  - Enable mixed precision training (`use_amp: true`)
+  - Increase batch size if memory allows
+  - Reduce model complexity by lowering model_channels
+  - Check for CPU bottlenecks in data loading
+
+**Poor Convergence**
+- **Symptom**: Loss doesn't decrease or fluctuates wildly
+- **Solutions**:
+  - Lower learning rate
+  - Increase warmup steps
+  - Check data normalization
+  - Inspect generated samples for signs of mode collapse
+
+**Data Loading Issues**
+- **Symptom**: Training crashes with data-related errors
+- **Solutions**:
+  - Verify dataset paths and structure
+  - Reduce num_workers in config
+  - Try setting num_workers to 0 to debug
+  - Ensure all images are valid and properly formatted
+
+### Running the Demo with Limited Resources
+
+If you don't have the resources to train the model but want to use the demo:
+
+1. **Download pre-trained weights**: Use the Google Drive link at the top of this README
+2. **Use CPU mode**: If no GPU is available, the model will automatically use CPU
+3. **Generate at lower resolution**: Use 256×256 resolution instead of higher
+4. **Use fewer diffusion steps**: 20-30 steps can still produce decent results
+5. **Consider optimization**: The model can be quantized for better CPU performance
 
 ## 🤝 Contributing
 
