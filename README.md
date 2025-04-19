@@ -17,10 +17,10 @@
 ---
 
 > ⚠️ **IMPORTANT**:  
-> Before running this application, you **must download the model weights and dataset files** from the following sources:
+> Before running this application, you **must download the model weights and dataset files** from the following sources: 
 >
-> - 🔗 [Google Drive - Model Weights & Preprocessed Files](https://drive.google.com/drive/folders/1fNZavpgZ46zEHnimYAHWQ6-mwJhuXYTy?usp=sharing)  
-> - 📦 [Kaggle - Chest X-rays (Indiana University)](https://www.kaggle.com/datasets/raddar/chest-xrays-indiana-university)
+> - 🔗 [Google Drive - Dataset, Model Weights & Preprocessed Files](https://drive.google.com/drive/folders/1fNZavpgZ46zEHnimYAHWQ6-mwJhuXYTy?usp=sharing)  
+> - 📦 [Kaggle - Dataset)](https://www.kaggle.com/datasets/raddar/chest-xrays-indiana-university)
 >
 > After downloading, **place the contents inside your local repository**, following the project structure described below.  
 > ⚠️ The application **will not function** without these required files.
