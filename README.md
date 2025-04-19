@@ -682,7 +682,7 @@ The system includes four carefully tuned presets:
 ## 🚂 Training the Models
 
 If you want to train the models from scratch rather than using the pre-trained weights, follow these instructions. Training consists of two stages: first training the VAE, then training the diffusion model using the trained VAE.
-
+**Incase the modular structure doesnt work, Use the scripts in the entire_script directory. Those contain entire code and work well! To run it, install the requirements and then execute them in order!**
 ### Hardware Requirements for Training
 
 Training these models requires significant computational resources:
