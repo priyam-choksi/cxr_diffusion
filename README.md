@@ -2,10 +2,11 @@
 
 <div align="center">
 
-<video controls width="700">
-  <source src="https://github.com/priyam-choksi/cxr_diffusion/blob/main/app_20demo.webm?raw=true" type="video/webm"> 
-  Your browser does not support the video tag.
-</video>
+<div align="center">
+
+[![Watch the demo on YouTube](https://img.youtube.com/vi/mzvOV1ZnXeE/0.jpg)](https://youtu.be/mzvOV1ZnXeE)
+
+*Click the image above to watch the full demo video on YouTube*
 
 ![X-ray Generation Banner](https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png)
 
