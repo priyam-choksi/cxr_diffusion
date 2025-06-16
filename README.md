@@ -6,8 +6,6 @@
 
 *Click the image above to watch the full demo video on YouTube*
 
-![X-ray Generation Banner](https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png)
-
 *Generating realistic chest X-ray images from text descriptions using latent diffusion models*
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)]()
@@ -95,7 +93,6 @@ The architecture consists of three core modules working together to transform te
 <div align="center">
   <div style="display: flex; justify-content: center;">
     <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/3.png" width="400" style="margin-right: 20px;"/>
-    <img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png" width="400"/>
   </div>
 </div>
 
@@ -376,11 +373,6 @@ This mode provides detailed information about the model architecture and perform
    - Explore the post-processing techniques
    - Compare different enhancement presets
    - Understand the effects of each processing step
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/priyam-choksi/cxr_diffusion/main/images/2.png" width="700" />
-<p><i>Model Information interface showing architecture diagrams</i></p>
-</div>
 
 ### Enhancement Comparison Mode
 
