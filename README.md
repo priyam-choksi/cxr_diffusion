@@ -1203,7 +1203,7 @@ If you use this project in your research, please cite it as:
   author = {Priyam Choksi},
   title = {Medical Chest X-Ray Generator},
   year = {2025},
-  url = {https://github.com/priyam-choksi/cxr_diffusion}
+  url = {https://github.com/priyam-choksi/cxr-diffusion}
 }
 ```
 
